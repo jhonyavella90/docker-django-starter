@@ -41,13 +41,19 @@ You will need also python and virtualenv
   $ make dev.build
   ```
 
-6. Migrate the database:
+6. Start docker containers:
+
+  ```
+  $ make dev.up
+  ```
+
+7. Migrate the database:
 
   ```
   $ make dev.migrate
   ```
 
-7. Start docker containers:
+8. Start again docker containers:
 
   ```
   $ make dev.up
@@ -55,7 +61,7 @@ You will need also python and virtualenv
 
 At this point you should be able to run the django app on `localhost:8000`
 
-8. To stop docker containers just run:
+9. To stop docker containers just run:
 
   ```
   $ make dev.down
