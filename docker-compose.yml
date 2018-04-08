@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:10.3
+    volumes:
+      # POSTGRES_LOCAL_DATA_DIR defined in .env file
+      - "${POSTGRES_LOCAL_DATA_DIR}:/var/lib/postgresql/data:rw"
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile_djangoapp
+      args:
+        PYTHON_PIP_VERSION: "${PYTHON_PIP_VERSION}"
+        SETUPTOOLS_VERSION: "${SETUPTOOLS_VERSION}"
+        VIRTUAL_ENV_VERSION: "${VIRTUAL_ENV_VERSION}"
+        MIBANK_DJANGO_CODE_DIR: "${MIBANK_DJANGO_CODE_DIR}"
+        TMP_DJANGO_CODE_DIR: "${TMP_DJANGO_CODE_DIR}"
+        CONTAINER_WORK_DIR: "${CONTAINER_WORK_DIR}"
+    command: python manage.py runserver 0.0.0.0:8000
+    container_name: mibank-django-container
+    volumes:
+      # MIBANK_DJANGO_CODE_DIR defined .env
+      - "${MIBANK_DJANGO_CODE_DIR}:${CONTAINER_WORK_DIR}:cached"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db

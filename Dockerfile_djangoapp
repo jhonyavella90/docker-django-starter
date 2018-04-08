@@ -1,0 +1,20 @@
+FROM python:2.7.14
+
+ARG PYTHON_PIP_VERSION
+ARG SETUPTOOLS_VERSION
+ARG VIRTUAL_ENV_VERSION
+ARG MIBANK_DJANGO_CODE_DIR
+# Being the repo outside of the project, to build the image it's necessary to copy
+# the repo in the local path an after the build, remove it
+ARG TMP_DJANGO_CODE_DIR
+ARG CONTAINER_WORK_DIR
+
+ENV PYTHONUNBUFFERED 1
+RUN pip install --upgrade pip && pip install --upgrade pip==${PYTHON_PIP_VERSION}
+RUN pip install setuptools==${SETUPTOOLS_VERSION}
+RUN pip install virtualenv==${VIRTUAL_ENV_VERSION}
+RUN mkdir ${CONTAINER_WORK_DIR}
+WORKDIR ${CONTAINER_WORK_DIR}
+COPY ${TMP_DJANGO_CODE_DIR}/requirements.txt ${CONTAINER_WORK_DIR}/
+RUN pip install -r requirements.txt
+COPY ${TMP_DJANGO_CODE_DIR}/. ${CONTAINER_WORK_DIR}/
