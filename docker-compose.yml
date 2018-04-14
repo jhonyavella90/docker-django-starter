@@ -26,3 +26,18 @@ services:
       - "8000:8000"
     depends_on:
       - db
+  mobile:
+    build:
+      context: .
+      dockerfile: Dockerfile_ionicapp
+      args:
+        MIBANK_IONIC_CODE_DIR: "${MIBANK_IONIC_CODE_DIR}"
+        TMP_IONIC_CODE_DIR: "${TMP_IONIC_CODE_DIR}"
+        IONIC_CONTAINER_WORK_DIR: "${IONIC_CONTAINER_WORK_DIR}"
+    command: ionic serve --lab -c
+    container_name: mibank-mobileapp-container
+    volumes:
+      - "${MIBANK_IONIC_CODE_DIR}:${IONIC_CONTAINER_WORK_DIR}:cached"
+    ports:
+      - "8100:8100"
+      - "35729:35729"

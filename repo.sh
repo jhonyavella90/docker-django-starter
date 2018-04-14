@@ -20,6 +20,7 @@ fi
 # repos as string in the form "<repo url>;<repo destination folder>"
 repos=(
     "git@bitbucket.org:pappcorn/mibank-web-service.git;mibank_django_project"
+    "git@bitbucket.org:pappcorn/mibank-mobile-app.git;mibank_mobileapp"
 )
 
 name_pattern=".*mibank(.*).git"
@@ -41,7 +42,7 @@ _clone ()
         [[ $repo =~ $name_pattern ]]
         name="${BASH_REMATCH[1]}"
 
-        if [ -d "$name" ]; then
+        if [ -d "$dest_repo" ]; then
             printf "The [%s] repo is already checked out. Continuing.\n" $name
         else
             if [ "${SHALLOW_CLONE}" == "1" ]; then
