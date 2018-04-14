@@ -59,10 +59,14 @@ You will need also python and virtualenv
   $ make dev.up
   ```
 
-At this point you should be able to run the django app on `localhost:8000`
+At this point you should be able to run the django app on `localhost:8000`, and the mobile app in `localhost:8100/ionic-lab`
 
 9. To stop docker containers just run:
 
   ```
   $ make dev.down
   ```
+
+### Notes
+
+* The Mobile app docker image is based on the dockerfile from https://hub.docker.com/r/agileek/ionic-framework/~/dockerfile/
