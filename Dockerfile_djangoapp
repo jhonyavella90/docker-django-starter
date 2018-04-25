@@ -15,6 +15,5 @@ RUN pip install setuptools==${SETUPTOOLS_VERSION}
 RUN pip install virtualenv==${VIRTUAL_ENV_VERSION}
 RUN mkdir ${CONTAINER_WORK_DIR}
 WORKDIR ${CONTAINER_WORK_DIR}
-COPY ${TMP_DJANGO_CODE_DIR}/requirements.txt ${CONTAINER_WORK_DIR}/
-RUN pip install -r requirements.txt
 COPY ${TMP_DJANGO_CODE_DIR}/. ${CONTAINER_WORK_DIR}/
+RUN pip install -r requirements/dev.txt
